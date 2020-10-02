@@ -2,6 +2,7 @@
 const path = require("path");
 const fsp = require("fs").promises;
 const fse = require("fs-extra");
+const semver = require("semver");
 
 const chai = require("chai");
 chai.use(require("chai-as-promised"));
@@ -13,8 +14,8 @@ const pipeline = require("../index");
 const { validate, versionCompatibility } = pipeline;
 
 describe(".versionCompatibility", () => {
-    it("should export a semver condition", () => {
-        assert.isString(versionCompatibility);
+    it("should export a valid semver", () => {
+        assert.isString(semver.valid(versionCompatibility));
     });
 });
 
