@@ -3,6 +3,7 @@ const path = require("path");
 const Ajv = require("ajv");
 const ajv = new Ajv();
 const validate = ajv.compile(require("./schema/options.schema.json"));
+const fse = require("fs-extra");
 
 const renderTf = require("./resource.tf.js");
 const { writeFile } = require("fs").promises;
@@ -10,7 +11,8 @@ const { writeFile } = require("fs").promises;
 module.exports = async (options) => {
     options.options = options.options || {};
     options.options.public = options.options.public || "public";
-
+    
+    await fse.mkdirp(path.join(options.paths.repo, options.paths.build, options.paths.infra));
     await writeFile(path.join(options.paths.repo, options.paths.build, options.paths.infra, options.id + ".tf"), renderTf(options));
 };
  
