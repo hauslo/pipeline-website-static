@@ -3,11 +3,6 @@ const path = require("path");
 const fsp = require("fs").promises;
 const fse = require("fs-extra");
 
-const Terraunit = require("terraunit");
-const terraunit = new Terraunit({
-    port: 9999
-});
-
 const chai = require("chai");
 chai.use(require("chai-as-promised"));
 const { assert } = chai;
@@ -16,9 +11,6 @@ const { version: VERSION, name: NAME } = require("../package.json");
 
 const pipeline = require("../index");
 const { validate, versionCompatibility } = pipeline;
-
-const KEEP_TEST_ARTIFACTS = true;
-
 
 describe(".versionCompatibility", () => {
     it("should export a semver condition", () => {
@@ -85,37 +77,4 @@ describe("pipeline()", () => {
         await assert.isFulfilled(pipeline(options));
     });
     it("should have worked /o/");
-});
-
-describe("terraform", () => {
-    before(async () => {
-        return terraunit.start();
-    });
-    after(async () => {
-        if (!KEEP_TEST_ARTIFACTS) {
-            await fse.remove(path.join(__dirname, ".test"));
-            //await fse.remove(path.join(__dirname, "..", "__terraunit__"));
-        }
-        return terraunit.stop();
-    });
-
-    describe("plan", () => {
-        it("does not throw", async () => {
-            await assert.isFulfilled(terraunit.plan({
-                configurations: [
-                    {
-                        workingDirectory: path.resolve(__dirname, "..")
-                    },
-                    {
-                        mockProviderType: "aws"
-                    }, {
-                        content: await fsp.readFile(path.resolve(__dirname, ".test", "build", "terraform", "test__website_static__test.tf"))
-                    }
-                ]
-            }).catch(err => {
-                console.error(err.stderr);
-                throw err;
-            }));
-        }).timeout(60000);
-    });
 });

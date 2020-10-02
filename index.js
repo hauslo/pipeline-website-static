@@ -4,22 +4,14 @@ const Ajv = require("ajv");
 const ajv = new Ajv();
 const validate = ajv.compile(require("./schema/options.schema.json"));
 
-const TERRAFORM_TEMPLATE = path.resolve(__dirname, "templates", "resource.tf.mustache");
-const TERRAFORM_MODULE = path.resolve(__dirname, "terraform");
-
-const renderMustacheFile = require("@hauslo/pipeline-util/renderMustacheFile");
-const copyDir = require("@hauslo/pipeline-util/copyDir");
+const renderTf = require("./resource.tf.js");
+const { writeFile } = require("fs").promises;
 
 module.exports = async (options) => {
     options.options = options.options || {};
     options.options.public = options.options.public || "public";
 
-    await copyDir(TERRAFORM_MODULE, path.join(options.paths.repo, options.paths.build, options.paths.res));
-    await renderMustacheFile(
-        TERRAFORM_TEMPLATE,
-        path.join(options.paths.repo, options.paths.build, options.paths.infra, options.id + ".tf"),
-        options
-    );
+    await writeFile(path.join(options.paths.repo, options.paths.build, options.paths.infra, options.id + ".tf"), renderTf(options));
 };
  
 module.exports.validate = (options = {}) => { 
@@ -30,4 +22,4 @@ module.exports.validate = (options = {}) => {
     }
 };
 
-module.exports.versionCompatibility = "^0.0.2";
+module.exports.versionCompatibility = "0.0.2";
