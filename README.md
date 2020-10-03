@@ -8,7 +8,7 @@
 
 ## Infra
 
-The underlying terraform module can be found at [https://github.com/hauslo/infra-website]
+The underlying terraform module can be found at <https://github.com/hauslo/infra-website>
 
 ## Test
 
