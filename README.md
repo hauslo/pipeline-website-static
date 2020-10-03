@@ -1,11 +1,10 @@
-
 # README
 
-*todo*
+[![npm](https://img.shields.io/npm/v/@hauslo/pipeline-website-static?style=flat-square)](https://www.npmjs.com/package/@hauslo/pipeline-website-static)
 
 ## Options
 
-`@hauslo/pipeline-website-static` accepts a single option, `public`, which is the path from the resource to the website public root. `public` defaults to `"public"` (ex: `"build/public"`).
+- `public` is the path from the resource to the website public root. `public` defaults to `"public"` (ex: `"public"`, `"build/public"`).
 
 ## Infra
 
@@ -15,4 +14,14 @@ The underlying terraform module can be found at [https://github.com/hauslo/infra
 
 ```bash
 npm test
+npm run coverage
+```
+
+## QA
+
+```bash
+npm run prettier
+npm run prettier-apply
+npm run lint
+npm run lint-apply
 ```

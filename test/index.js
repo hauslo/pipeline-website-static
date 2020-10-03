@@ -1,3 +1,4 @@
+/* eslint-env mocha */
 
 const path = require("path");
 const fsp = require("fs").promises;
@@ -6,11 +7,13 @@ const semver = require("semver");
 
 const chai = require("chai");
 chai.use(require("chai-as-promised"));
+
 const { assert } = chai;
 
 const { version: VERSION, name: NAME } = require("../package.json");
 
 const pipeline = require("../index");
+
 const { validate, versionCompatibility } = pipeline;
 
 describe(".versionCompatibility", () => {
@@ -27,19 +30,21 @@ describe(".validate()", () => {
         assert.doesNotThrow(() => validate({}));
     });
     it("should accept objects with a single prop 'public'", () => {
-        assert.doesNotThrow(() => validate({ "public": "public" }));
+        assert.doesNotThrow(() => validate({ public: "public" }));
     });
     it("shouldn't accept objects with a single prop that is not 'public'", () => {
-        assert.throws(() => validate({ "unexpectedOption": true }));
+        assert.throws(() => validate({ unexpectedOption: true }));
     });
     it("shouldn't accept objects with more than the 'public' prop", () => {
-        assert.throws(() => validate({ "public": "public", "unexpectedOption": true }));
+        assert.throws(() =>
+            validate({ public: "public", unexpectedOption: true })
+        );
     });
     it("shouldn't accept anything that is not the above", () => {
         assert.throws(() => validate("public"));
         assert.throws(() => validate(0));
         assert.throws(() => validate(null));
-        assert.throws(() => validate(() => { }));
+        assert.throws(() => validate(() => {}));
         assert.throws(() => validate([]));
     });
 });
@@ -70,7 +75,10 @@ describe("pipeline()", () => {
 
     before(async () => {
         await fse.mkdirp(path.join(__dirname, ".test", "src", "public"));
-        await fsp.writeFile(path.join(__dirname, ".test", "src", "public", "index.html"), "Hello World !\n");
+        await fsp.writeFile(
+            path.join(__dirname, ".test", "src", "public", "index.html"),
+            "Hello World !\n"
+        );
         await fse.mkdirp(path.join(__dirname, ".test", "build"));
     });
 
