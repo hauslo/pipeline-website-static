@@ -1,9 +1,9 @@
 const path = require("path");
 const Ajv = require("ajv");
+const fsp = require("fs").promises;
 
 const ajv = new Ajv();
 
-const { writeFile } = require("@hauslo/pipeline-util");
 const validate = ajv.compile(require("./schema/options.schema.json"));
 
 const renderTf = require("./lib/resource.tf.js");
@@ -13,7 +13,7 @@ module.exports = async options => {
     resourceOptions.public = resourceOptions.public || "public";
     resourceOptions.region = resourceOptions.region || "eu-west-3";
 
-    await writeFile(
+    await fsp.writeFile(
         path.join(options.paths.repo, options.paths.build, `${options.id}.tf`),
         renderTf(options)
     );

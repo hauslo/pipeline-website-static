@@ -35,7 +35,6 @@
     ],
     "license": "MIT",
     "dependencies": {
-        "@hauslo/pipeline-util": "0.0.9",
         "ajv": "^6.12.5"
     },
     "devDependencies": {
