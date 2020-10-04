@@ -3,7 +3,6 @@
 const path = require("path");
 const fsp = require("fs").promises;
 const fse = require("fs-extra");
-const semver = require("semver");
 
 const chai = require("chai");
 chai.use(require("chai-as-promised"));

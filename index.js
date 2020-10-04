@@ -27,4 +27,4 @@ module.exports.validate = (options = {}) => {
     }
 };
 
-module.exports.versionCompatibility = "0.1.x";
+module.exports.versionCompatibility = ">=0.1.2 <0.2.0";
