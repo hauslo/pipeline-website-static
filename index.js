@@ -11,6 +11,7 @@ const renderTf = require("./lib/resource.tf.js");
 module.exports = async options => {
     const resourceOptions = options.options || {};
     resourceOptions.public = resourceOptions.public || "public";
+    resourceOptions.region = resourceOptions.region || "eu-west-3";
 
     await writeFile(
         path.join(

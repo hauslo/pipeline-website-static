@@ -8,5 +8,13 @@
     "arrowParens": "avoid",
     "endOfLine": "lf",
     "singleQuote": false,
-    "embeddedLanguageFormatting": "auto"
+    "embeddedLanguageFormatting": "auto",
+    "overrides": [
+        {
+            "files": "*.md",
+            "options": {
+                "tabWidth": 1
+            }
+        }
+    ]
 }

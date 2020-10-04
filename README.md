@@ -5,6 +5,7 @@
 ## Options
 
 - `public` is the path from the resource to the website public root. `public` defaults to `"public"` (ex: `"public"`, `"build/public"`).
+- `region` is the aws region to deploy to. `region` defaults to `"eu-west-3"`.
 
 ## Infra
 
