@@ -14,12 +14,7 @@ module.exports = async options => {
     resourceOptions.region = resourceOptions.region || "eu-west-3";
 
     await writeFile(
-        path.join(
-            options.paths.repo,
-            options.paths.build,
-            options.paths.infra,
-            `${options.id}.tf`
-        ),
+        path.join(options.paths.repo, options.paths.build, `${options.id}.tf`),
         renderTf(options)
     );
 };

@@ -32,13 +32,16 @@ describe(".validate()", () => {
     it("should accept objects with a single prop 'public'", () => {
         assert.doesNotThrow(() => validate({ public: "public" }));
     });
-    it("shouldn't accept objects with a single prop that is not 'public'", () => {
-        assert.throws(() => validate({ unexpectedOption: true }));
+    it("should accept objects with a single prop 'region'", () => {
+        assert.doesNotThrow(() => validate({ region: "eu-west-3" }));
     });
-    it("shouldn't accept objects with more than the 'public' prop", () => {
-        assert.throws(() =>
-            validate({ public: "public", unexpectedOption: true })
+    it("should accept objects with the props 'region' and 'public'", () => {
+        assert.doesNotThrow(() =>
+            validate({ region: "eu-west-3", public: "public" })
         );
+    });
+    it("shouldn't accept objects with a props other than 'public' or 'region'", () => {
+        assert.throws(() => validate({ unexpectedOption: true }));
     });
     it("shouldn't accept anything that is not the above", () => {
         assert.throws(() => validate("public"));
@@ -61,8 +64,6 @@ describe("pipeline()", () => {
             _src: "../../..",
             build: "test/.test/build",
             _build: "../../..",
-            infra: "terraform",
-            _infra: "..",
             res: "test",
             _res: ".."
         },
@@ -77,13 +78,15 @@ describe("pipeline()", () => {
         await fse.mkdirp(path.join(__dirname, ".test", "src", "public"));
         await fsp.writeFile(
             path.join(__dirname, ".test", "src", "public", "index.html"),
-            "Hello World !\n"
+            "<p>Hello World !</p>\n"
         );
         await fse.mkdirp(path.join(__dirname, ".test", "build"));
+    });
+    after(async () => {
+        await fse.remove(path.join(__dirname, ".test"));
     });
 
     it("shouldn't throw", async () => {
         await assert.isFulfilled(pipeline(options));
     });
-    it("should have worked /o/");
 });

@@ -7,6 +7,10 @@
         "public": {
             "type": "string",
             "description": "Website public directory"
+        },
+        "region": {
+            "type": "string",
+            "description": "AWS region to deploy to"
         }
     },
     "additionalProperties": false
