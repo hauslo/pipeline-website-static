@@ -17,8 +17,8 @@ const pipeline = require("../index");
 const { validate, versionCompatibility } = pipeline;
 
 describe(".versionCompatibility", () => {
-    it("should export a valid semver", () => {
-        assert.isString(semver.valid(versionCompatibility));
+    it("should export a valid semver condition", () => {
+        assert.isString(versionCompatibility);
     });
 });
 
