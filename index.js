@@ -1,30 +1,30 @@
 const path = require("path");
-const Ajv = require("ajv");
-const fsp = require("fs").promises;
 
-const ajv = new Ajv();
+module.exports = {};
 
-const validate = ajv.compile(require("./schema/options.schema.json"));
+module.exports.terraform = ({
+    name,
+    slug,
+    paths,
+    options: { public = "public", region = "eu-west-3" } = {}
+}) => `
+provider "aws" {
+  alias                       = "${name}"
+  region                      = "${region}"
+}
 
-const renderTf = require("./lib/resource.tf.js");
+module "${name}" {
+  source = "github.com/hauslo/infra-website"
 
-module.exports = async options => {
-    const resourceOptions = options.options || {};
-    resourceOptions.public = resourceOptions.public || "public";
-    resourceOptions.region = resourceOptions.region || "eu-west-3";
+  providers = {
+    aws = aws.${name}
+  }
 
-    await fsp.writeFile(
-        path.join(options.paths.repo, options.paths.build, `${options.id}.tf`),
-        renderTf(options)
-    );
-};
+  id     = "${slug}"
+  public = "${path.join(paths._build, paths.src, public)}"
+}
+`;
 
-module.exports.validate = (options = {}) => {
-    if (!validate(options)) {
-        const err = new Error("Invalid pipeline options");
-        err.validationErrors = validate.errors;
-        throw err;
-    }
-};
+module.exports.validate = require("./schema/options.schema.json");
 
-module.exports.versionCompatibility = ">=0.1.2 <0.2.0";
+module.exports.versionCompatibility = ">=0.2.0 <0.3.0";

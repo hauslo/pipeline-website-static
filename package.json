@@ -9,8 +9,6 @@
     },
     "main": "index.js",
     "scripts": {
-        "test": "npx mocha test",
-        "coverage": "npx nyc npm test",
         "prettier": "npx prettier --ignore-path .gitignore --check .",
         "prettier-apply": "npx prettier --ignore-path .gitignore --write .",
         "lint": "npx eslint .",
@@ -34,21 +32,13 @@
         }
     ],
     "license": "MIT",
-    "dependencies": {
-        "ajv": "^6.12.5"
-    },
+    "dependencies": {},
     "devDependencies": {
-        "chai": "^4.2.0",
-        "chai-as-promised": "^7.1.1",
         "eslint": "^7.2.0",
         "eslint-config-airbnb-base": "^14.2.0",
         "eslint-config-prettier": "^6.12.0",
         "eslint-plugin-import": "^2.22.1",
         "eslint-plugin-prettier": "^3.1.4",
-        "fs-extra": "^9.0.1",
-        "mocha": "^8.1.3",
-        "nyc": "^15.1.0",
-        "prettier": "^2.1.2",
-        "semver": "^7.3.2"
+        "prettier": "^2.1.2"
     }
 }

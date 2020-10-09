@@ -15,10 +15,7 @@ The underlying terraform module can be found at <https://github.com/hauslo/infra
 
 ## Test
 
-```bash
-npm test
-npm run coverage
-```
+No test until `@hauslo/pipeline@0.2.0`
 
 ## QA
 
