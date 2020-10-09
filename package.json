@@ -1,6 +1,6 @@
 {
     "name": "@hauslo/pipeline-website-static",
-    "version": "0.0.11",
+    "version": "0.1.0",
     "description": "Module for @hauslo/pipeline. Deploys a static website to S3 Static Website",
     "homepage": "https://github.com/hauslo/pipeline-website-static#readme",
     "repository": {
